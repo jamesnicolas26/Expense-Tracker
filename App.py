@@ -21,6 +21,10 @@ class ExpenseTracker:
         self.expenses.append({"name": name, "amount": amount})
         self.save_expenses()
 
+    def delete_expense(self, name, amount):
+        self.expenses.pop(self.expenses.index({"name": name, "amount": amount}))
+        self.save_expenses()
+
     def view_expenses(self):
         for expense in self.expenses:
             print(f"{expense['name']}: ₱{expense['amount']}")
@@ -31,7 +35,7 @@ class ExpenseTracker:
 
 tracker = ExpenseTracker()
 while True:
-    print("\n1. Add Expense\n2. View Expenses\n3. Total Expenses\n4. Exit")
+    print("\n1. Add Expense\n2. Delete Expense\n3. View Expenses\n4. Total Expenses\n5. Exit")
     choice = input("Enter your choice: ")
 
     if choice == '1':
@@ -39,10 +43,14 @@ while True:
         amount = float(input("Enter amount: "))
         tracker.add_expense(name, amount)
     elif choice == '2':
-        tracker.view_expenses()
+        name = input("Enter expense name: ")
+        amount = float(input("Enter amount: "))
+        tracker.delete_expense(name, amount)
     elif choice == '3':
-        print(f"Total Expenses: ₱{tracker.total_expenses()}")
+        tracker.view_expenses()
     elif choice == '4':
+        print(f"Total Expenses: ₱{tracker.total_expenses()}")
+    elif choice == '5':
         break
     else:
         print("Invalid choice. Please try again.")
